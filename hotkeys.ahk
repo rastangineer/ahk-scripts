@@ -36,16 +36,14 @@ F1::send ^{pgup} ;control shift tab, which goes to the next tab
 F2::send ^{pgdn} ;control tab, which goes to the previous tab
 F3::send ^w ;control w, which closes a tab
 
-;Reload this script, https://github.com/TaranVH/2nd-keyboard/blob/master/ALL_MULTIPLE_KEYBOARD_ASSIGNMENTS.ahk#L2290
+;;VISUAL STUDIO CODE KEYS
 #ifwinactive ahk_exe Code.exe
-^r::
+; F1::send ^{pgup} ;control shift tab, which goes to the next tab
+; F2::send ^{pgdn} ;control tab, which goes to the previous tab
+F3::send ^w ;control w, which closes a tab
+^r:: ;Reload this script, https://github.com/TaranVH/2nd-keyboard/blob/master/ALL_MULTIPLE_KEYBOARD_ASSIGNMENTS.ahk#L2290
 send ^s
 sleep 10
 Soundbeep, 1000, 10
 Reload
 Return
-
-
-
-
-  
