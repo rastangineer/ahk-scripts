@@ -2,13 +2,13 @@
 
 My own personal Auto Hot Keys script.
 
-## Why?
+## Why
 
-I'm lazy
+I'm lazy and do repetitive stuff manually is boring
 
 ## Inspired by others
 
-This script is inspired on [TaranVH scripts](https://github.com/TaranVH/2nd-keyboard) and [Vonng scritps](https://github.com/Vonng/Capslock) but customized to my own needs and practices.
+This script is inspired by [TaranVH scripts](https://github.com/TaranVH/2nd-keyboard) and [Vonng scripts](https://github.com/Vonng/Capslock) but customized to my own needs and practices.
 
 ## Hotkeys
 
@@ -16,8 +16,8 @@ This script is inspired on [TaranVH scripts](https://github.com/TaranVH/2nd-keyb
 
 | Shortcut | Description         |
 | -------- | ------------------- |
-| `F1`     | Switch to tab left  |
-| `F2`     | Switch to tab right |
+| `F1`     | Switch to left tab  |
+| `F2`     | Switch to right tab |
 | `F3`     | Close tab           |
 
-### More to come Outlook, Chrome, Firefox, 
+### More to come Outlook, Chrome, Firefox
