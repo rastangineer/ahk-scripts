@@ -69,13 +69,18 @@ Return
 
 #!c:: ; win+alt+c
   ctmp := clipboard ; what's currently on the clipboard
-  clipboard := ""
+  clipboard := "" 
   Send ^c ; copy to clipboard
   ClipWait, 2 ; wait for the clipboard to change
   clipboard := "[" . clipboard . "](" . ctmp . ")"
 Return ; ends a multiline command
 
 ;; GLOBAL HOTKEYS
+
+;;Remap Win+Space (switch keyboard languades) to Alt+Space (launchy)
+##Space::
+  send !{Space}
+return
 
 ;; close all Explorer windows when Winkey x pressed
 ;; https://autohotkey.com/board/topic/88648-close-all-explorer-windows/
