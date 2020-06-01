@@ -82,6 +82,9 @@ Return ; ends a multiline command
   send !{Space}
 return
 
+;;Disable Win+Tab (show desktops)
+##Tab:: return
+
 ;; close all Explorer windows when Winkey x pressed
 ;; https://autohotkey.com/board/topic/88648-close-all-explorer-windows/
 #x:: ;; Win + x , close all explorer windows
