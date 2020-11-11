@@ -1,16 +1,21 @@
-#include custom_texts.ahk 
-;; basically includes personal text macros
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
+Menu, Tray, Icon, shell32.dll, 283 ;tray icon is now a little keyboard, or piece of paper or something
+
 
 #SingleInstance, Force
 #UseHook
 #InstallKeybdHook
 
-SendMode Input
-SetWorkingDir, %A_ScriptDir%
-Menu, Tray, Icon, shell32.dll, 283 ;tray icon is now a little keyboard, or piece of paper or something
+;; basically includes personal text macros
+#include custom_texts.ahk 
+
+
 
 GroupAdd,ExplorerGroup, ahk_class CabinetWClass
 GroupAdd,ExplorerGroup, ahk_class ExploreWClass
+
+
 
 ;; How to disable Office Hot Key
 ;; https://superuser.com/questions/1457073/how-do-i-disable-specific-windows-10-office-keyboard-shortcut-ctrlshiftwinal
@@ -131,7 +136,31 @@ return
 F1::send ^{pgup} ;control shift tab, which goes to the next tab
 F2::send ^{pgdn} ;control tab, which goes to the previous tab
 F3::send ^w ;control w, which closes a tab
-;F4::send {mButton} ; middle mouse button, which opens a link in a new tab.
+$F9:: ;https://www.autohotkey.com/boards/viewtopic.php?t=72431
+  #include local_vars.ahk
+  Clipboard := ""
+  ; Send ^l
+  Send {F6}
+  while !Clipboard {
+      Sleep, 50
+      Send ^c
+  }
+  ; Send {End}
+  Send {F6}
+  WinGetActiveTitle, title
+  Clipboard := "* [" . title . "](" . Clipboard . ")"
+  Clipboard := StrReplace(Clipboard, " - Mozilla Firefox")
+  ; Sleep, 50
+  ; MsgBox, % Clipboard
+
+  ;https://www.autohotkey.com/boards/viewtopic.php?t=61744
+  FileRead, currentLinks, %linksFilePath%
+  currentLinks := "" . Clipboard . "`r`n`r`n" . currentLinks
+  FileDelete, %linksFilePath%
+  FileAppend, %currentLinks%, %linksFilePath%
+
+  Return
+
 
 ;;CHROME KEYS
 #IfWinActive ahk_exe chrome.exe
