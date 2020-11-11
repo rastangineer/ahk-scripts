@@ -72,13 +72,6 @@ Return
   Run https://translate.google.com/?hl=es#view=home&op=translate&sl=auto&tl=es&text=%t2translate%
 Return
 
-#!c:: ; win+alt+c
-  ctmp := clipboard ; what's currently on the clipboard
-  clipboard := "" 
-  Send ^c ; copy to clipboard
-  ClipWait, 2 ; wait for the clipboard to change
-  clipboard := "[" . clipboard . "](" . ctmp . ")"
-Return ; ends a multiline command
 
 ;; GLOBAL HOTKEYS
 
@@ -139,27 +132,37 @@ F3::send ^w ;control w, which closes a tab
 $F9:: ;https://www.autohotkey.com/boards/viewtopic.php?t=72431
   #include local_vars.ahk
   Clipboard := ""
-  ; Send ^l
   Send {F6}
   while !Clipboard {
       Sleep, 50
       Send ^c
   }
-  ; Send {End}
   Send {F6}
   WinGetActiveTitle, title
   Clipboard := "* [" . title . "](" . Clipboard . ")"
   Clipboard := StrReplace(Clipboard, " - Mozilla Firefox")
-  ; Sleep, 50
-  ; MsgBox, % Clipboard
 
   ;https://www.autohotkey.com/boards/viewtopic.php?t=61744
   FileRead, currentLinks, %linksFilePath%
   currentLinks := "" . Clipboard . "`r`n`r`n" . currentLinks
   FileDelete, %linksFilePath%
   FileAppend, %currentLinks%, %linksFilePath%
+Return
 
-  Return
+^!c:: ; ctrl+alt+c
+  #include local_vars.ahk
+  Clipboard := ""
+  Send {F6}
+  while !Clipboard {
+      Sleep, 50
+      Send ^c
+  }
+  Send {F6}
+  WinGetActiveTitle, title
+  Clipboard := "[" . title . "](" . Clipboard . ")"
+  Clipboard := StrReplace(Clipboard, " - Mozilla Firefox")
+
+Return ; ends a multiline command
 
 
 ;;CHROME KEYS
