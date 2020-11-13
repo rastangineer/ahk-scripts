@@ -75,6 +75,23 @@ Return
 
 ;; GLOBAL HOTKEYS
 
+;;Connect to VPN
+!+p:: ;shift+alt+p
+  Run, C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe
+  sleep 2000
+  send {Enter}
+  sleep 3000
+  send ^!a
+
+Return
+
+;;Disconnect from VPN
+!+o:: ;shift+alt+p
+  Run, C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe
+  sleep 1000
+  send {Enter}
+Return
+
 ;;Remap Win+Space (switch keyboard languades) to Alt+Space (launchy)
 ##Space::
   send !{Space}
@@ -182,3 +199,7 @@ F3::send ^w ;control w, which closes a tab
   Soundbeep, 1000, 10
   Reload
 Return
+
+
+
+
