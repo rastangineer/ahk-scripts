@@ -43,6 +43,27 @@ SetCapslockState, AlwaysOff
     }
 return
 
+;; Zoom Meeting shortcut
+~Capslock & 3::
+Send !^+{z}
+;; NOTE: On Zoom settings, enable the following keyboard shortcut: Navigate Among Zoom Popup Windows
+Return
+
+;; Slack shortcut
+~Capslock & 4::
+IfWinActive ahk_exe slack.exe
+{
+  send +!{Up} ;shift alt up
+}
+Else
+{
+  IfWinNotExist ahk_exe slack.exe
+    run, "C:\Users\%A_UserName%\AppData\Local\slack\slack.exe"
+  WinWait, ahk_exe slack.exe
+  winactivate, ahk_exe slack.exe
+}
+Return
+
 ;; vim navigation with hyper
 ~Capslock & h:: Send {Left}
 ~Capslock & l:: Send {Right}
@@ -157,7 +178,8 @@ $F9:: ;https://www.autohotkey.com/boards/viewtopic.php?t=72431
   Send {F6}
   WinGetActiveTitle, title
   Clipboard := "* [" . title . "](" . Clipboard . ")"
-  Clipboard := StrReplace(Clipboard, " - Mozilla Firefox")
+  ; MsgBox, % Clipboard
+  Clipboard := StrReplace(Clipboard, "Mozilla Firefox")
 
   ;https://www.autohotkey.com/boards/viewtopic.php?t=61744
   FileRead, currentLinks, %linksFilePath%
@@ -176,8 +198,11 @@ Return
   }
   Send {F6}
   WinGetActiveTitle, title
+  title := StrReplace(title, "Mozilla Firefox")
+  MsgBox, % title
   Clipboard := "[" . title . "](" . Clipboard . ")"
-  Clipboard := StrReplace(Clipboard, " - Mozilla Firefox")
+  ; Clipboard := StrReplace(Clipboard, " — Mozilla Firefox")
+  MsgBox, % Clipboard
 
 Return ; ends a multiline command
 
