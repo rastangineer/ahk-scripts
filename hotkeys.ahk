@@ -157,6 +157,29 @@ F3:: ;  closes any explorer window https://stackoverflow.com/questions/39601787/
   WinClose, ahk_class CabinetWClass  
 return
 
+^F2::GoSub,CheckActiveWindow
+
+CheckActiveWindow:
+  ID := WinExist("A")
+  WinGetClass,Class, ahk_id %ID%
+  WClasses := "CabinetWClass ExploreWClass"
+  IfInString, WClasses, %Class%
+    GoSub, Toggle_HiddenFiles_Display
+Return
+
+Toggle_HiddenFiles_Display:
+  RootKey = HKEY_CURRENT_USER
+  SubKey  = Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+
+  RegRead, HiddenFiles_Status, % RootKey, % SubKey, Hidden
+
+  if HiddenFiles_Status = 2
+      RegWrite, REG_DWORD, % RootKey, % SubKey, Hidden, 1 
+  else 
+      RegWrite, REG_DWORD, % RootKey, % SubKey, Hidden, 2
+  PostMessage, 0x111, 41504,,, ahk_id %ID%
+Return
+
 ;;OUTLOOK KEYS
 #IfWinActive ahk_exe OUTLOOK.EXE
 F3::send !4 ; alt + 4, make sure the fourth option on Outlok Quick Access Toolbar is set to Mark All as Read, https://superuser.com/questions/385173/is-there-a-shortcut-for-mark-all-messages-as-read-in-outlook
