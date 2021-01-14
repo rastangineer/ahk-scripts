@@ -1,4 +1,4 @@
-SendMode Input
+﻿SendMode Input
 SetWorkingDir, %A_ScriptDir%
 Menu, Tray, Icon, shell32.dll, 283 ;tray icon is now a little keyboard, or piece of paper or something
 
@@ -201,14 +201,30 @@ $F9:: ;https://www.autohotkey.com/boards/viewtopic.php?t=72431
   Send {F6}
   WinGetActiveTitle, title
   Clipboard := "* [" . title . "](" . Clipboard . ")"
-  ; MsgBox, % Clipboard
-  Clipboard := StrReplace(Clipboard, "Mozilla Firefox")
+  Clipboard := StrReplace(Clipboard, " — Mozilla Firefox")
+  MsgBox, % Clipboard
+
 
   ;https://www.autohotkey.com/boards/viewtopic.php?t=61744
-  FileRead, currentLinks, %linksFilePath%
-  currentLinks := "" . Clipboard . "`r`n`r`n" . currentLinks
-  FileDelete, %linksFilePath%
-  FileAppend, %currentLinks%, %linksFilePath%
+  ; FileRead, currentLinks, *P65001 %linksFilePath2%
+  ; currentLinks := "" . Clipboard . "`r`n`r`n" . currentLinks
+  ; FileDelete, %linksFilePath2%
+  ; FileAppend, %Clipboard%, %linksFilePath2%
+
+
+  ; https://www.autohotkey.com/boards/viewtopic.php?t=61744
+
+  ; filePath := linksFilePath2
+
+  oFile := FileOpen(linksFilePath, "rw")
+  posAfterBOM := oFile.Pos()
+  ; MsgBox, % posAfterBOM
+  ; content := oFile.Read()
+  content := "" . Clipboard . "`r`n`r`n" . oFile.Read()
+  oFile.Pos := posAfterBOM
+  oFile.Write(content)
+  ; oFile.Write(Clipboard . content)
+  oFile.Close()
 Return
 
 ^!c:: ; ctrl+alt+c
@@ -222,10 +238,10 @@ Return
   Send {F6}
   WinGetActiveTitle, title
   title := StrReplace(title, "Mozilla Firefox")
-  MsgBox, % title
+  ; MsgBox, % title
   Clipboard := "[" . title . "](" . Clipboard . ")"
-  ; Clipboard := StrReplace(Clipboard, " — Mozilla Firefox")
-  MsgBox, % Clipboard
+  Clipboard := StrReplace(Clipboard, " — Mozilla Firefox")
+  ; MsgBox, % Clipboard
 
 Return ; ends a multiline command
 
