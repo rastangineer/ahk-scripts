@@ -220,7 +220,8 @@ $F9:: ;https://www.autohotkey.com/boards/viewtopic.php?t=72431
   posAfterBOM := oFile.Pos()
   ; MsgBox, % posAfterBOM
   ; content := oFile.Read()
-  content := "" . Clipboard . "`r`n`r`n" . oFile.Read()
+  content := oFile.Read()
+  content := content . "`r`n" . Clipboard . "`r`n"
   oFile.Pos := posAfterBOM
   oFile.Write(content)
   ; oFile.Write(Clipboard . content)
@@ -237,7 +238,6 @@ Return
   }
   Send {F6}
   WinGetActiveTitle, title
-  title := StrReplace(title, "Mozilla Firefox")
   ; MsgBox, % title
   Clipboard := "[" . title . "](" . Clipboard . ")"
   Clipboard := StrReplace(Clipboard, " — Mozilla Firefox")
